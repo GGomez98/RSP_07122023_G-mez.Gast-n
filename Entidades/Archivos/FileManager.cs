@@ -22,13 +22,19 @@ namespace Entidades.Files
             FileManager.path = escritorio + "\\20231207_Gómez.Gastón\\";
             FileManager.ValidarExistenciaDeDirectorio();
         }
-
+        /// <summary>
+        /// Guarda un archivo con informacion
+        /// </summary>
+        /// <param name="data">el dato a guardar dentro del archivo</param>
+        /// <param name="nombreArchivo">el nombre del archivo</param>
+        /// <param name="append">si se desea sobreescribir el archivo o seguir en la linea siguiente</param>
+        /// <exception cref="FileManagerException"></exception>
         public static void Guardar(string data, string nombreArchivo, bool append)
         {
             try
             {
                 string destino = Path.Combine(path, nombreArchivo);
-                using (StreamWriter sw = new StreamWriter(destino))
+                using (StreamWriter sw = new StreamWriter(destino,append))
                 {
                     sw.WriteLine(data);
                 }
@@ -38,7 +44,14 @@ namespace Entidades.Files
                 throw new FileManagerException("Error al guardar archivo", e);
             }
         }
-
+        /// <summary>
+        /// Serializa un elemento a formato json
+        /// </summary>
+        /// <typeparam name="T">el tipo de elemento a serializar</typeparam>
+        /// <param name="elemento">el elemento a serializar</param>
+        /// <param name="nombreArchivo">el nombre del archivo json</param>
+        /// <returns></returns>
+        /// <exception cref="FileManagerException"></exception>
         public static bool Serializar<T>(T elemento, string nombreArchivo)
             where T : class
         {
@@ -57,10 +70,14 @@ namespace Entidades.Files
             }
             catch (Exception e)
             {
+                FileManager.Guardar(e.Message, "logs.txt", true);
                 throw new FileManagerException("Error al serializar archivo", e);
             }
         }
-
+        /// <summary>
+        /// Valida la existencia de un directorio y si no existe lo crea
+        /// </summary>
+        /// <exception cref="FileManagerException"></exception>
         private static void ValidarExistenciaDeDirectorio()
         {
            try
@@ -72,6 +89,7 @@ namespace Entidades.Files
            }
            catch (Exception e)
            {
+                FileManager.Guardar(e.Message, "logs.txt", true);
                 throw new FileManagerException("Error al crear directorio", e);
            }
         }

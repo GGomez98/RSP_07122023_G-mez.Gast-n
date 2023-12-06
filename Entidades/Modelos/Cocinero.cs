@@ -29,7 +29,6 @@ namespace Entidades.Modelos
         public Cocinero(string nombre)
         {
             this.nombre = nombre;
-            this.cantPedidosFinalizados = 0;
         }
 
         //No hacer nada
@@ -60,6 +59,9 @@ namespace Entidades.Modelos
         public string Nombre { get => nombre; }
         public int CantPedidosFinalizados { get => cantPedidosFinalizados; set => this.cantPedidosFinalizados = value; }
 
+        /// <summary>
+        /// Inicia un hilo ejecutando las tareas para preparar el menu
+        /// </summary>
         private void IniciarIngreso()
         {
             this.tarea = Task.Run(()=>{
@@ -73,16 +75,21 @@ namespace Entidades.Modelos
             }, this.cancellation.Token);
         }
 
+        /// <summary>
+        /// Crea un nuevo menu y lo notifica
+        /// </summary>
         private void NotificarNuevoIngreso()
         {
             if (this.OnIngreso != null)
             {
                 this.menu = new T();
                 this.menu.IniciarPreparacion();
-                this.OnIngreso.Invoke(this.menu); 
-                
+                this.OnIngreso.Invoke(this.menu);
             }
         }
+        /// <summary>
+        /// Realiza un conteo entre el momento en que se finaliza un menu y el siguiente
+        /// </summary>
         private void EsperarProximoIngreso()
         {
             int tiempoEspera = 0;

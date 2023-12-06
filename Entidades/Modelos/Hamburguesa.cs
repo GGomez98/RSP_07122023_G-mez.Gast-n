@@ -33,12 +33,17 @@ namespace Entidades.Modelos
         public string Imagen => this.imagen;
 
 
-
+        /// <summary>
+        /// mediante el metodo extendido que genera una lista aleatoria de ingredientes se la asigna al atributo ingredientes de la hamburguesa
+        /// </summary>
         private void AgregarIngredientes()
         {
             this.ingredientes = this.random.IngredientesAleatorios();
         }
-
+        /// <summary>
+        /// Muestra los datos de la hamburguesa
+        /// </summary>
+        /// <returns>un string con los datos</returns>
         private string MostrarDatos()
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -49,8 +54,6 @@ namespace Entidades.Modelos
 
         }
 
-
-
         public override string ToString() => this.MostrarDatos();
 
         public void FinalizarPreparacion(string cocinero)
@@ -59,6 +62,9 @@ namespace Entidades.Modelos
             this.estado = !this.estado;
         }
 
+        /// <summary>
+        /// Obtiene un tipo de hamburguesa de manera aleatoria y le agrega los ingredientes
+        /// </summary>
         public void IniciarPreparacion()
         {
             if (!this.estado)

@@ -5,6 +5,12 @@ namespace Entidades.MetodosDeExtension
 {
     public static class IngredientesExtension
     {
+        /// <summary>
+        /// Realiza el calculo del coste final del menu tomando el costo base del mismo y sumando los porcentajes de los ingredientes
+        /// </summary>
+        /// <param name="ingredientes">la lista de ingredientes</param>
+        /// <param name="costoInicial">el costo baste del menu (sin ingredientes)</param>
+        /// <returns>el costo base con los porcentajes de los ingredientes sumados</returns>
         public static double CalcularCostoIngrediente(this List<EIngrediente> ingredientes, int costoInicial)
         {
             foreach (EIngrediente ingrediente in ingredientes)
@@ -17,7 +23,7 @@ namespace Entidades.MetodosDeExtension
         /// Genera una nueva lista a partir de un numero aleatorio el cual representa la cantidad de ingredientes
         /// </summary>
         /// <param name="rand">el numero aleatorio de ingredientes a tomar</param>
-        /// <returns></returns>
+        /// <returns>la nueva lista generada</returns>
         public static List<EIngrediente> IngredientesAleatorios(this Random rand)
         {
             List<EIngrediente> ingredientes = new List<EIngrediente>()
