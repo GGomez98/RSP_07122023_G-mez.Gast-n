@@ -16,6 +16,7 @@ namespace MisTest
             //act
 
             //assert
+            FileManager.Guardar("Algo", "/", true);
         }
 
         [TestMethod]
@@ -24,9 +25,9 @@ namespace MisTest
         {
             //arrange
             int resultadoEsperado = 0;
+            Cocinero<Hamburguesa> cocinero = new Cocinero<Hamburguesa>("Ramon");
 
             //act
-            Cocinero<Hamburguesa> cocinero = new Cocinero<Hamburguesa>("Ramon");
 
             //assert
             Assert.AreEqual(resultadoEsperado, cocinero.CantPedidosFinalizados);

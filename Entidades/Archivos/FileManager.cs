@@ -28,7 +28,7 @@ namespace Entidades.Files
             try
             {
                 string destino = Path.Combine(path, nombreArchivo);
-                using (StreamWriter sw = new StreamWriter(FileManager.path, append))
+                using (StreamWriter sw = new StreamWriter(destino))
                 {
                     sw.WriteLine(data);
                 }
