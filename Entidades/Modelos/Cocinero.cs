@@ -17,8 +17,8 @@ namespace Entidades.Modelos
         private double demoraPreparacionTotal;
         private CancellationTokenSource cancellation;
         private T menu;
-        public event DelegadoNuevoIngreso OnIngreso;
         public event DelegadoDemoraAtencion OnDemora;
+        public event DelegadoNuevoIngreso OnIngreso;
 
         private Task tarea;
 
@@ -70,7 +70,7 @@ namespace Entidades.Modelos
                     this.NotificarNuevoIngreso();
                     this.EsperarProximoIngreso();
                     this.CantPedidosFinalizados++;
-                    DataBaseManager.GuardarTicket(this.Nombre, this.menu);
+                    DataBaseManager.GuardarTicket(this.nombre, this.menu);
                 } while (!this.cancellation.IsCancellationRequested);
             }, this.cancellation.Token);
         }
@@ -96,11 +96,11 @@ namespace Entidades.Modelos
 
             if(this.OnDemora != null)
             {
-                while(this.menu.Estado == false && !this.cancellation.IsCancellationRequested)
+                while(!this.menu.Estado && !this.cancellation.IsCancellationRequested)
                 {
-                    tiempoEspera++;
-                    Thread.Sleep(1000);
                     this.OnDemora.Invoke(tiempoEspera);
+                    Thread.Sleep(1000);
+                    tiempoEspera++;
                 }
 
                 this.demoraPreparacionTotal += tiempoEspera;

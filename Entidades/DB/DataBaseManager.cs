@@ -9,7 +9,7 @@ namespace Entidades.DataBase
 {
     public class DataBaseManager
     {
-        private static SqlConnection? connection;
+        private static SqlConnection connection;
         private static string stringConnection;
 
         static DataBaseManager()
@@ -28,7 +28,7 @@ namespace Entidades.DataBase
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(stringConnection))
+                using (connection = new SqlConnection(stringConnection))
                 {
                     string query = "SELECT * FROM comidas WHERE tipo_comida = @tipo_comida";
                     SqlCommand cmd = new SqlCommand(query, connection);
@@ -54,11 +54,17 @@ namespace Entidades.DataBase
                 FileManager.Guardar(ex.Message, "logs.txt", true);
                 throw new ComidaInvalidaExeption("No se encontro la comida");
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 FileManager.Guardar(ex.Message, "logs.txt", true);
-                throw new DataBaseManagerException("Ocurrio un Error", ex);
+                throw new DataBaseManagerException("Error al leer la base", ex);
             }
+            catch(Exception ex)
+            {
+                FileManager.Guardar(ex.Message, "logs.txt", true);
+                throw new Exception("Ocurrio un error", ex);
+            }
+
         }
         /// <summary>
         /// Se carga un ticket a la base de datos
@@ -72,7 +78,7 @@ namespace Entidades.DataBase
         {
             try
             {
-                using (SqlConnection connection = new SqlConnection(stringConnection))
+                using (connection = new SqlConnection(stringConnection))
                 {
                     string query = "INSERT INTO TICKETS (empleado,ticket)" + "VALUES (@empleado,@ticket)";
                     SqlCommand cmd = new SqlCommand(query, connection);
@@ -86,10 +92,15 @@ namespace Entidades.DataBase
                     return true;
                 }
             }
-            catch (Exception ex)
+            catch (SqlException ex)
             {
                 FileManager.Guardar(ex.Message, "logs.txt", true);
                 throw new DataBaseManagerException("Error al guardar el ticket", ex);
+            }
+            catch (Exception ex)
+            {
+                FileManager.Guardar(ex.Message, "logs.txt", true);
+                throw new Exception("Ocurrio un error", ex);
             }
         }
 

@@ -3,7 +3,6 @@ using Entidades.Exceptions;
 using Entidades.Files;
 using Entidades.Interfaces;
 using Entidades.Modelos;
-using System.Security.Cryptography.X509Certificates;
 
 namespace FrmView
 {
@@ -27,11 +26,12 @@ namespace FrmView
         //en el formulario los datos de la comida
         private void MostrarComida(IComestible comida)
         {
-            if(this.InvokeRequired)
+            if (this.InvokeRequired)
             {
-                this.BeginInvoke(()=>MostrarComida(comida));
+                this.BeginInvoke(() => MostrarComida(comida));
             }
-            else {
+            else
+            {
                 this.comidas.Enqueue(comida);
                 this.pcbComida.Load(comida.Imagen);
                 this.rchElaborando.Text = comida.ToString();
@@ -47,7 +47,7 @@ namespace FrmView
 
             if (this.InvokeRequired)
             {
-                this.BeginInvoke(()=>MostrarConteo(tiempo));
+                this.BeginInvoke(() => MostrarConteo(tiempo));
             }
             else
             {

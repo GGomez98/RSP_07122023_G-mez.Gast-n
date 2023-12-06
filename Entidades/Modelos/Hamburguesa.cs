@@ -40,6 +40,15 @@ namespace Entidades.Modelos
         {
             this.ingredientes = this.random.IngredientesAleatorios();
         }
+
+        public override string ToString() => this.MostrarDatos();
+
+        public void FinalizarPreparacion(string cocinero)
+        {
+            this.costo = this.ingredientes.CalcularCostoIngrediente(costoBase);
+            this.estado = !this.estado;
+        }
+
         /// <summary>
         /// Muestra los datos de la hamburguesa
         /// </summary>
@@ -52,14 +61,6 @@ namespace Entidades.Modelos
             this.ingredientes.ForEach(i => stringBuilder.AppendLine(i.ToString()));
             return stringBuilder.ToString();
 
-        }
-
-        public override string ToString() => this.MostrarDatos();
-
-        public void FinalizarPreparacion(string cocinero)
-        {
-            this.costo = this.ingredientes.CalcularCostoIngrediente(costoBase);
-            this.estado = !this.estado;
         }
 
         /// <summary>

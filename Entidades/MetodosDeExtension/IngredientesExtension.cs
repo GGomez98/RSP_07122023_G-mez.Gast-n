@@ -13,11 +13,12 @@ namespace Entidades.MetodosDeExtension
         /// <returns>el costo base con los porcentajes de los ingredientes sumados</returns>
         public static double CalcularCostoIngrediente(this List<EIngrediente> ingredientes, int costoInicial)
         {
+            double costoTotal = costoInicial;
             foreach (EIngrediente ingrediente in ingredientes)
             {
-                costoInicial += (costoInicial / 100 * (int)ingrediente);
+                costoTotal += (costoInicial / 100 * (int)ingrediente);
             }
-            return costoInicial;
+            return costoTotal;
         }
         /// <summary>
         /// Genera una nueva lista a partir de un numero aleatorio el cual representa la cantidad de ingredientes
