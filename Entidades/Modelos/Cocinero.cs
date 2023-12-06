@@ -68,7 +68,7 @@ namespace Entidades.Modelos
                     this.NotificarNuevoIngreso();
                     this.EsperarProximoIngreso();
                     this.CantPedidosFinalizados++;
-                    //DataBaseManager.GuardarTicket(this.Nombre, this.menu);
+                    DataBaseManager.GuardarTicket(this.Nombre, this.menu);
                 } while (!this.cancellation.IsCancellationRequested);
             }, this.cancellation.Token);
         }
@@ -89,11 +89,11 @@ namespace Entidades.Modelos
 
             if(this.OnDemora != null)
             {
-                while(!this.menu.Estado && !this.cancellation.Token.IsCancellationRequested)
+                while(this.menu.Estado == false && !this.cancellation.IsCancellationRequested)
                 {
                     tiempoEspera++;
-                    this.OnDemora.Invoke(tiempoEspera);
                     Thread.Sleep(1000);
+                    this.OnDemora.Invoke(tiempoEspera);
                 }
 
                 this.demoraPreparacionTotal += tiempoEspera;

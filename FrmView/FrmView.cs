@@ -29,8 +29,7 @@ namespace FrmView
         {
             if(this.InvokeRequired)
             {
-                DelegadoNuevoIngreso callback = new DelegadoNuevoIngreso(MostrarComida);
-                this.BeginInvoke(callback);
+                this.BeginInvoke(()=>MostrarComida(comida));
             }
             else {
                 this.comidas.Enqueue(comida);
@@ -48,8 +47,7 @@ namespace FrmView
 
             if (this.InvokeRequired)
             {
-                DelegadoDemoraAtencion callback = new DelegadoDemoraAtencion(MostrarConteo);
-                this.BeginInvoke(callback);
+                this.BeginInvoke(()=>MostrarConteo(tiempo));
             }
             else
             {
@@ -97,7 +95,7 @@ namespace FrmView
         private void FrmView_FormClosing(object sender, FormClosingEventArgs e)
         {
             //Alumno: Serializar el cocinero antes de cerrar el formulario
-            FileManager.Serializar(hamburguesero, "hamburguesero.json");
+            FileManager.Serializar(this.hamburguesero, "hamburguesero.json");
         }
     }
 }

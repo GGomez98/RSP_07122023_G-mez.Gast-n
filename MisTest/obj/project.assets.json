@@ -6794,11 +6794,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\MisTest\\MisTest.csproj",
+      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\MisTest\\MisTest.csproj",
       "projectName": "MisTest",
-      "projectPath": "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\MisTest\\MisTest.csproj",
+      "projectPath": "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\MisTest\\MisTest.csproj",
       "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\MisTest\\obj\\",
+      "outputPath": "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\MisTest\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -6815,8 +6815,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj": {
-              "projectPath": "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj"
+            "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj": {
+              "projectPath": "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj"
             }
           }
         }

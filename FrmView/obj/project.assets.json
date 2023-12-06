@@ -493,11 +493,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\FrmView\\FrmView.csproj",
+      "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\FrmView\\FrmView.csproj",
       "projectName": "FrmView",
-      "projectPath": "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\FrmView\\FrmView.csproj",
+      "projectPath": "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\FrmView\\FrmView.csproj",
       "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\FrmView\\obj\\",
+      "outputPath": "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\FrmView\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -514,8 +514,8 @@
         "net6.0-windows7.0": {
           "targetAlias": "net6.0-windows",
           "projectReferences": {
-            "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj": {
-              "projectPath": "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj"
+            "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj": {
+              "projectPath": "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj"
             }
           }
         }

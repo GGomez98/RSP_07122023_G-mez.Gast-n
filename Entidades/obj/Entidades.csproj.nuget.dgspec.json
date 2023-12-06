@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj": {}
+    "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj": {
+    "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj",
+        "projectUniqueName": "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj",
         "projectName": "Entidades",
-        "projectPath": "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj",
+        "projectPath": "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\Entidades\\Entidades.csproj",
         "packagesPath": "C:\\Users\\Usuario\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Usuario\\Desktop\\SP_07122023_Gómez.Gastón\\Entidades\\obj\\",
+        "outputPath": "C:\\Users\\Usuario\\Desktop\\RSP_07122023_Gómez.Gastón\\Entidades\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Usuario\\AppData\\Roaming\\NuGet\\NuGet.Config",

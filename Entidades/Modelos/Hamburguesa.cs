@@ -36,7 +36,6 @@ namespace Entidades.Modelos
 
         private void AgregarIngredientes()
         {
-            this.random = new Random();
             this.ingredientes = this.random.IngredientesAleatorios();
         }
 
@@ -57,15 +56,14 @@ namespace Entidades.Modelos
         public void FinalizarPreparacion(string cocinero)
         {
             this.costo = this.ingredientes.CalcularCostoIngrediente(costoBase);
-            this.estado = true;
+            this.estado = !this.estado;
         }
 
         public void IniciarPreparacion()
         {
             if (!this.estado)
             {
-                random = new Random();
-                int idImgaen = random.Next(1, 9);
+                int idImgaen = this.random.Next(1, 9);
                 string tipo = $"Hamburguesa_{idImgaen}";
                 this.imagen = DataBaseManager.GetImagenComida(tipo);
                 this.AgregarIngredientes();

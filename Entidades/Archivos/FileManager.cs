@@ -12,14 +12,14 @@ using System.Threading.Tasks;
 namespace Entidades.Files
 {
     
-    public  class FileManager
+    public static class FileManager
     {
         private static string path;
 
-        private FileManager()
+        static FileManager()
         {
             string escritorio = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-            FileManager.path = Path.Combine(escritorio, "20231207_Gómez.Gastón");
+            FileManager.path = escritorio + "\\20231207_Gómez.Gastón\\";
             FileManager.ValidarExistenciaDeDirectorio();
         }
 
@@ -27,7 +27,7 @@ namespace Entidades.Files
         {
             try
             {
-                FileManager.path = Path.Combine(FileManager.path, nombreArchivo);
+                string destino = Path.Combine(path, nombreArchivo);
                 using (StreamWriter sw = new StreamWriter(FileManager.path, append))
                 {
                     sw.WriteLine(data);
@@ -44,11 +44,11 @@ namespace Entidades.Files
         {
             try
             {
-                FileManager.path = Path.Combine(FileManager.path, nombreArchivo);
+                string destino = Path.Combine(path,nombreArchivo);
                 JsonSerializerOptions options = new JsonSerializerOptions();
                 options.WriteIndented = true;
 
-                using (StreamWriter sw = new StreamWriter(FileManager.path))
+                using (StreamWriter sw = new StreamWriter(destino))
                 {
                     string elementoJson = JsonSerializer.Serialize(elemento, options);
                     sw.WriteLine(elementoJson);
@@ -63,18 +63,17 @@ namespace Entidades.Files
 
         private static void ValidarExistenciaDeDirectorio()
         {
-            if (!Directory.Exists(FileManager.path))
-            {
-                try
+           try
+           {
+                if (!Directory.Exists(FileManager.path))
                 {
-                    string escritorio = Environment.GetFolderPath(Environment.SpecialFolder.Desktop);
-                    FileManager.path = Path.Combine(escritorio, "20231207_Gómez.Gastón");
+                    Directory.CreateDirectory(FileManager.path);
                 }
-                catch (Exception e)
-                {
-                    throw new FileManagerException("Error al crear directorio", e);
-                }
-            }
+           }
+           catch (Exception e)
+           {
+                throw new FileManagerException("Error al crear directorio", e);
+           }
         }
     }
 }
