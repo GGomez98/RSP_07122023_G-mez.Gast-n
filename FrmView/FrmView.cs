@@ -18,7 +18,7 @@ namespace FrmView
             this.hamburguesero = new Cocinero<Hamburguesa>("Ramon");
             //Alumno - agregar manejadores al cocinero
             this.hamburguesero.OnDemora += this.MostrarConteo;
-            this.hamburguesero.OnIngreso += this.MostrarComida;
+            this.hamburguesero.OnPedido += this.MostrarComida;
         }
 
 

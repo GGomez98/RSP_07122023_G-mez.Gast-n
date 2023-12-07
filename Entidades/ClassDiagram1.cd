@@ -38,7 +38,7 @@
   <Class Name="Entidades.Modelos.Cocinero&lt;T&gt;">
     <Position X="0.5" Y="0.5" Width="3.75" />
     <TypeIdentifier>
-      <HashCode>EQAAAAAgAAAAAACAAIAAgAiIgAACgAAIAAAAQAAAAAA=</HashCode>
+      <HashCode>AQAAAAAgAAAAAACCAIAAgACIgAAKgAAIAAAgQAAAAAA=</HashCode>
       <FileName>Modelos\Cocinero.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -78,7 +78,7 @@
       <FileName>Modelos\Cocinero.cs</FileName>
     </TypeIdentifier>
   </Delegate>
-  <Delegate Name="Entidades.Modelos.DelegadoNuevoIngreso">
+  <Delegate Name="Entidades.Modelos.DelegadoPedidoEnCurso">
     <Position X="6.25" Y="5.75" Width="1.5" />
     <TypeIdentifier>
       <HashCode>AAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>

@@ -9,7 +9,7 @@ namespace Entidades.Modelos
 
 
     public delegate void DelegadoDemoraAtencion(double demora);
-    public delegate void DelegadoNuevoIngreso(IComestible menu);
+    public delegate void DelegadoPedidoEnCurso(IComestible menu);
     public class Cocinero<T> where T : IComestible, new()
     {
         private int cantPedidosFinalizados;
@@ -20,7 +20,7 @@ namespace Entidades.Modelos
         private Mozo<T> mozo;
         private Queue<T> pedidos;
         public event DelegadoDemoraAtencion OnDemora;
-        public event DelegadoNuevoIngreso OnIngreso;
+        public event DelegadoPedidoEnCurso OnPedido;
 
         private Task tarea;
 
@@ -31,6 +31,9 @@ namespace Entidades.Modelos
         public Cocinero(string nombre)
         {
             this.nombre = nombre;
+            this.mozo = new Mozo<T>();
+            this.pedidos = new Queue<T>();
+            this.mozo.OnPedido += TomarNuevoPedido;
         }
 
         //No hacer nada
@@ -47,13 +50,20 @@ namespace Entidades.Modelos
                 if (value && !this.HabilitarCocina)
                 {
                     this.cancellation = new CancellationTokenSource();
-                    this.IniciarIngreso();
+                    this.mozo.EmpezarATrabajar = true;
+                    this.EmpezarACocinar();
                 }
                 else
                 {
                     this.cancellation.Cancel();
+                    this.mozo.EmpezarATrabajar = !(this.mozo.EmpezarATrabajar);
                 }
             }
+        }
+
+        public Queue<T> Pedidos
+        {
+            get { return this.pedidos; }
         }
 
         //no hacer nada
@@ -64,31 +74,23 @@ namespace Entidades.Modelos
         /// <summary>
         /// Inicia un hilo ejecutando las tareas para preparar el menu
         /// </summary>
-        private void IniciarIngreso()
+        private void EmpezarACocinar()
         {
             this.tarea = Task.Run(()=>{
                 do
                 {
-                    this.NotificarNuevoIngreso();
-                    this.EsperarProximoIngreso();
-                    this.CantPedidosFinalizados++;
-                    DataBaseManager.GuardarTicket(this.nombre, this.pedidoEnPreparacion);
+                    if(this.pedidos.Count > 0)
+                    {
+                        this.pedidoEnPreparacion = this.pedidos.Dequeue();
+                        this.OnPedido.Invoke(this.pedidoEnPreparacion);
+                        this.EsperarProximoIngreso();
+                        this.CantPedidosFinalizados++;
+                        DataBaseManager.GuardarTicket(this.nombre, this.pedidoEnPreparacion);
+                    }
                 } while (!this.cancellation.IsCancellationRequested);
             }, this.cancellation.Token);
         }
 
-        /// <summary>
-        /// Crea un nuevo menu y lo notifica
-        /// </summary>
-        private void NotificarNuevoIngreso()
-        {
-            if (this.OnIngreso != null)
-            {
-                this.pedidoEnPreparacion = new T();
-                this.pedidoEnPreparacion.IniciarPreparacion();
-                this.OnIngreso.Invoke(this.pedidoEnPreparacion);
-            }
-        }
         /// <summary>
         /// Realiza un conteo entre el momento en que se finaliza un menu y el siguiente
         /// </summary>
@@ -107,6 +109,14 @@ namespace Entidades.Modelos
             }
 
             this.demoraPreparacionTotal += tiempoEspera;
+        }
+
+        private void TomarNuevoPedido(T menu)
+        {
+            if(OnPedido != null)
+            {
+                this.pedidos.Enqueue(menu);
+            }
         }
     }
 }
