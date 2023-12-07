@@ -96,15 +96,15 @@ namespace Entidades.Modelos
 
             if(this.OnDemora != null)
             {
-                while(!this.menu.Estado && !this.cancellation.IsCancellationRequested)
+                while(!this.cancellation.IsCancellationRequested && !this.menu.Estado)
                 {
                     this.OnDemora.Invoke(tiempoEspera);
                     Thread.Sleep(1000);
                     tiempoEspera++;
                 }
-
-                this.demoraPreparacionTotal += tiempoEspera;
             }
+
+            this.demoraPreparacionTotal += tiempoEspera;
         }
     }
 }

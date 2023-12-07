@@ -29,8 +29,8 @@ namespace Entidades.Modelos
         }
 
         public string Ticket => $"{this}\nTotal a pagar:{this.costo}";
-        public bool Estado => this.esDoble;
-        public string Imagen => this.imagen;
+        public bool Estado { get => this.estado; }
+        public string Imagen { get => this.imagen;  }
 
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace Entidades.Modelos
         public void FinalizarPreparacion(string cocinero)
         {
             this.costo = this.ingredientes.CalcularCostoIngrediente(costoBase);
-            this.estado = !this.estado;
+            this.estado = !(this.Estado);
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Entidades.Modelos
         /// </summary>
         public void IniciarPreparacion()
         {
-            if (!this.estado)
+            if (!this.Estado)
             {
                 int idImgaen = this.random.Next(1, 9);
                 string tipo = $"Hamburguesa_{idImgaen}";

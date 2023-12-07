@@ -4,6 +4,7 @@ using Entidades.Excepciones;
 using Entidades.Exceptions;
 using Entidades.Files;
 using Entidades.Interfaces;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace Entidades.DataBase
 {
@@ -26,6 +27,7 @@ namespace Entidades.DataBase
         /// <exception cref="DataBaseManagerException"></exception>
         public static string GetImagenComida(string tipo)
         {
+            string imagen = "";
             try
             {
                 using (connection = new SqlConnection(stringConnection))
@@ -33,7 +35,6 @@ namespace Entidades.DataBase
                     string query = "SELECT * FROM comidas WHERE tipo_comida = @tipo_comida";
                     SqlCommand cmd = new SqlCommand(query, connection);
                     cmd.Parameters.AddWithValue("tipo_comida", tipo);
-
                     connection.Open();
                     SqlDataReader reader = cmd.ExecuteReader();
 
@@ -41,7 +42,7 @@ namespace Entidades.DataBase
                     if (reader.HasRows)
                     {
                         reader.Read();
-                        return reader.GetString(2);
+                        imagen = reader.GetString(2);
                     }
                     else
                     {
@@ -52,18 +53,19 @@ namespace Entidades.DataBase
             catch (ComidaInvalidaExeption ex) 
             {
                 FileManager.Guardar(ex.Message, "logs.txt", true);
-                throw new ComidaInvalidaExeption("No se encontro la comida");
             }
             catch (SqlException ex)
             {
-                FileManager.Guardar(ex.Message, "logs.txt", true);
-                throw new DataBaseManagerException("Error al leer la base", ex);
+                DataBaseManagerException dataEx = new DataBaseManagerException("Error al leer la base", ex);
+                FileManager.Guardar(dataEx.Message, "logs.txt", true);
             }
             catch(Exception ex)
             {
-                FileManager.Guardar(ex.Message, "logs.txt", true);
-                throw new Exception("Ocurrio un error", ex);
+                Exception e = new Exception("Ocurrio un error", ex);
+                FileManager.Guardar(e.Message, "logs.txt", true);
             }
+
+            return imagen;
 
         }
         /// <summary>
@@ -76,6 +78,7 @@ namespace Entidades.DataBase
         /// <exception cref="DataBaseManagerException"></exception>
         public static bool GuardarTicket<T>(string nombreEmpleado, T comida) where T : IComestible, new()
         {
+            bool retorno = false;
             try
             {
                 using (connection = new SqlConnection(stringConnection))
@@ -83,25 +86,28 @@ namespace Entidades.DataBase
                     string query = "INSERT INTO TICKETS (empleado,ticket)" + "VALUES (@empleado,@ticket)";
                     SqlCommand cmd = new SqlCommand(query, connection);
 
-                    cmd.Parameters.AddWithValue("empleado", nombreEmpleado);
-                    cmd.Parameters.AddWithValue("ticket", comida.Ticket);
+                    cmd.Parameters.AddWithValue("@empleado", nombreEmpleado);
+                    cmd.Parameters.AddWithValue("@ticket", comida.Ticket);
 
                     connection.Open();
-                    cmd.ExecuteNonQuery();
-
-                    return true;
+                    if(cmd.ExecuteNonQuery() > 0)
+                    {
+                        retorno = true;
+                    }
                 }
             }
             catch (SqlException ex)
             {
-                FileManager.Guardar(ex.Message, "logs.txt", true);
-                throw new DataBaseManagerException("Error al guardar el ticket", ex);
+                DataBaseManagerException dataEx = new DataBaseManagerException("Error al guardar en la base", ex);
+                FileManager.Guardar(dataEx.Message, "logs.txt", true);
             }
             catch (Exception ex)
             {
-                FileManager.Guardar(ex.Message, "logs.txt", true);
-                throw new Exception("Ocurrio un error", ex);
+                Exception e = new Exception("Ocurrio un error", ex);
+                FileManager.Guardar(e.Message, "logs.txt", true);
             }
+
+            return retorno;
         }
 
     }
