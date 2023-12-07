@@ -7,13 +7,12 @@ using System.Threading.Tasks;
 
 namespace Entidades.Modelos
 {
+    public delegate void DelegadoNuevoPedido<T>(T menu);
     public class Mozo<T> where T : IComestible, new()
     {
-        public delegate void DelegadoNuevoPedido(T menu);
-
         private CancellationTokenSource cancellation;
         private T menu;
-        public event DelegadoNuevoPedido OnPedido;
+        public event DelegadoNuevoPedido<T> OnPedido;
 
         private Task tarea;
 
